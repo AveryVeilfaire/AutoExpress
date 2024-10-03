@@ -24,9 +24,10 @@ def generate_expressions(
     pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
 
     if is_realistic:
-        log.info("Using clip prompts since realistic is set to true.")
+        log.info("|\x1b[1;32;20mRealistic Mode\x1b[0m| Using clip prompts.")
         expressions = json_handler.get_clip_expression_list()
     else:
+        log.info("|\x1b[31;20mAnime Mode\x1b[0m|")
         expressions = json_handler.get_expression_list()
 
     log.info(f"Output Directory: {output_path.absolute()}")

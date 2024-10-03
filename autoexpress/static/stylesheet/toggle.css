@@ -19,6 +19,13 @@
      height: 0;
  }
 
+ /* The anime/realistic labels -AV*/
+ .toggle-label{
+    text-align: center;
+    margin-right: 0px;
+    padding-right: 0px;
+ }
+
  /* The slider */
  .slider {
      position: absolute;

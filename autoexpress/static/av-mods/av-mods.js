@@ -1,6 +1,54 @@
-let image_data = null;
+document.querySelector('.settings-load-button').addEventListener('click', function(){
+    loadSettings();
+});
 
-    document.querySelector('.sd-connect').addEventListener('click', function () {
+document.querySelector('.settings-save-button').addEventListener('click', function(){
+    saveSettings();
+});
+ 
+function uploadSettings(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/settings', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Upload successful. Recieved data for the settings file:', data)
+            settings_data = data;
+            //updateUI(data);
+        })
+        .catch(error => console.error('Error uploading file:', error));
+}
+
+
+function saveSettings() {
+    const outputDir = document.getElementById('output-directory').value;
+
+    fetch(`/images/${outputDir}`)
+        .then(response => response.json())
+        .then(files => {
+            images = files.map(file => `/image/${outputDir}/${file}`);
+            fileNames = files;  // Store just the file names
+            currentIndex = 0; // Reset index when new images are loaded
+            if (images.length > 0) {
+                displayImage(currentIndex);
+            } else {
+                document.getElementById('image-display').src = "";
+                document.getElementById('image-name').textContent = "No images found.";
+            }
+        })
+        .catch(error => {
+            console.error('Error loading images:', error);
+            alert('Failed to load images.');
+        });
+}
+
+
+/*
+document.querySelector('.sd-connect').addEventListener('click', function () {
     
     var inputText = document.querySelector('#ip-input').value;  // Get the input value
     var button = this;
@@ -91,3 +139,5 @@ let image_data = null;
         });
 
 });
+
+*/

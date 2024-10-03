@@ -153,4 +153,7 @@ cython_debug/
 Output/
 uploads/
 .vscode/
+.idea/
+startup.bat
 QOL CHANGES.txt
+AutoExpress.code-workspace

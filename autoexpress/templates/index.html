@@ -24,6 +24,13 @@
         <div class="sidebar">
             <h1>Parameters</h1>
 
+            <!-- AV-Settings -->
+            <div class = "input-container">
+                <input type="text" class="settings-file-name" id="settings-file-name" name="settings-file-name" placeholder="settings file name"></input>
+                <button class="material-symbols-outlined settings-load-buttons" onclick="loadSettings()">settings_load</button>
+                <button class="material-symbols-outlined settings-save-buttons" onclick="saveSettings()">settings_save</button>
+            </div>
+
             <!-- A1111 API Url -->
 
             <div class="input-container">
@@ -57,25 +64,23 @@
                 </select>
             </div>
 
-            <!-- Clip skip Input -->
-            <div class="input-container">
-                <label for="clip-skip-input">Clip Skip</label>
-                <input type="number" id="clip-skip-input" name="clip-skip" value="2">
-            </div>
+            <!-- Clip skip Input & seed -->
 
-        
-            <!-- Seed Input -->
             <div class="input-container">
                 <label for="seed-input">Seed</label>
                 <input type="number" id="seed-input" name="seed-input" value="-1" min="-1">
+            
+                <label style='text-align: right; margin-right: 0; padding-right: 0;' for="clip-skip-input">Clip Skip</label>
+                <input style='max-width: 25px' type="number" id="clip-skip-input" name="clip-skip" value="2">
             </div>
+
 
             <!-- Steps Slider + Input -->
             <div class="input-container">
                 <label for="steps">Steps</label>
                 <input type="range" id="steps-slider" name="steps-slider" min="0" max="40" step="1"
                     oninput="updateInput('steps')">
-                <input type="number" id="steps-input" name="steps-input" value="32" min="0" oninput="updateSlider('steps')">
+                <input type="number" class=".toggle-label" id="steps-input" name="steps-input" value="32" min="0" oninput="updateSlider('steps')">
             </div>
         
             <!-- Width Slider + Input -->
@@ -83,7 +88,7 @@
                 <label for="width">Width</label>
                 <input type="range" id="width-slider" name="width-slider" min="0" max="2048" step="1"
                     oninput="updateInput('width')">
-                <input type="number" id="width-input" name="width-input" value="512" min="0" oninput="updateSlider('width')">
+                <input type="number" class=".toggle-label" id="width-input" name="width-input" value="512" min="0" oninput="updateSlider('width')">
             </div>
         
             <!-- Height Slider + Input -->
@@ -91,7 +96,7 @@
                 <label for="height">Height</label>
                 <input type="range" id="height-slider" name="height-slider" min="0" max="2048" step="1"
                     oninput="updateInput('height')">
-                <input type="number" id="height-input" name="height-input" value="768" min="0" oninput="updateSlider('height')">
+                <input type="number" class=".toggle-label" id="height-input" name="height-input" value="768" min="0" oninput="updateSlider('height')">
             </div>
         
             <!-- CFG Scale Slider + Input -->
@@ -99,7 +104,7 @@
                 <label for="cfg-scale">CFG Scale</label>
                 <input type="range" id="cfg-scale-slider" name="cfg-scale-slider" min="0" max="20" step="0.5"
                     oninput="updateInput('cfg-scale')">
-                <input type="number" id="cfg-scale-input" name="cfg-scale-input" value="7" min="0" oninput="updateSlider('cfg-scale')">
+                <input type="number" class=".toggle-label" id="cfg-scale-input" name="cfg-scale-input" value="7" min="0" oninput="updateSlider('cfg-scale')">
             </div>
         
             <!-- Denoising Strength Slider + Input -->
@@ -107,17 +112,16 @@
                 <label for="denoising-strength">Denoising Strength</label>
                 <input type="range" id="denoising-strength-slider" name="denoising-strength-slider" min="0" max="1" step="0.05"
                     oninput="updateInput('denoising-strength')">
-                <input type="number" id="denoising-strength-input" name="denoising-strength-input" min="0" value="0.5"
-                    oninput="updateSlider('denoising-strength')">
+                <input type="number" class=".toggle-label" id="denoising-strength-input" name="denoising-strength-input" min="0" value="0.5" oninput="updateSlider('denoising-strength')">
             </div>
 
             <div class="anime-realistic-switcher">
-                <label>Anime</label>
+                <label class="toggle-label">Anime</label>
                 <label class="switch">
                     <input type="checkbox" id="toggleButton">
                     <span class="slider round"></span>
                 </label>
-                <label>Realistic</label>
+                <label class="toggle-label">Realistic</label>
             </div>
     
         </div>

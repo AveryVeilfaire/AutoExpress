@@ -1,0 +1,23 @@
+/* ---------------- SETTINGS -----------------*/
+.settings-load-button {
+    color: white;
+    background-color: #222222;
+}
+
+.settings-save-button {
+    color: white;
+    background-color: #222222;
+}
+
+#settings-input {
+    font-family: "Quicksand", sans-serif;
+    color: #ffffff;
+    background-color: rgba(5, 5, 5, 0.7);
+    width: 50%;
+    outline: none;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+}

@@ -1,2 +1,1 @@
-REM .venv\Scripts\activate
-flask --app autoexpress run
+flask --app autoexpress run --debug
