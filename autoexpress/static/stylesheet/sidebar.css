@@ -15,21 +15,10 @@
     border-radius: 10px;
     min-width: 1px;
     color: var(--input-number-color);
-
 }
 
 .sidebar-add-space {
     padding: 25px;
-}
-
-input:checked+.anime {
-    transition: .4s;
-    background-color: blue;
-}
-
-input:not(:checked)+.anime {
-    transition: .4s;
-    background-color: pink;
 }
 
 #seed-input {
@@ -42,12 +31,10 @@ input:not(:checked)+.anime {
 
 #seed-input {
     padding-right: 0.5rem;
-
     &::-webkit-inner-spin-button {
         appearance: none;
         opacity: 0 !important;
         cursor: auto;
         width: 0px;
     }
-
 }

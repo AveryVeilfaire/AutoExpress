@@ -1,10 +1,10 @@
-document.querySelector('.generate-button').addEventListener('click', function () {
+document.querySelector('.generate-button').addEventListener('click', function() {
     // Create an XMLHttpRequest to send data
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "/generate", true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
 
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log('Data sent successfully');
@@ -33,7 +33,7 @@ document.querySelector('.generate-button').addEventListener('click', function ()
         ad_clip_skip: document.getElementById('clip-skip-input').value,
         ad_cfg_scale: document.getElementById('cfg-scale-input').value,
         ad_denoising_strength: document.getElementById('denoising-strength-input').value,
+        prompt_style: document.getElementById('prompt-style-input').value,
     });
-
     xhr.send(data);
 });
