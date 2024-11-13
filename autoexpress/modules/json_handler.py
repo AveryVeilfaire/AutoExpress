@@ -9,6 +9,10 @@ def get_expression_list():
     with open(r"autoexpress\resources\expressions.json", "r") as exp_file:
         return json.load(exp_file)
 
+def get_expression_style(style_file: str):
+    with open(fr"autoexpress\resources\styles\{style_file}", "r") as exp_file:
+        return json.load(exp_file)
+    
 
 def get_clip_expression_list():
     with open(r"autoexpress\resources\clip_expressions.json", "r") as exp_file:

@@ -22,17 +22,22 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.image-name-column-container>* {
+    display: flex;
+    justify-content: center;
 }
 
 .image-container {
     flex: 1;
-    display: flex;
-    align-self: center;
     object-fit: scale-down;
+    max-height: 80svh;
 }
 
 #image-display {
-    display: flex;
     object-fit: contain;
     width: 95%;
     height: 95%;
@@ -47,7 +52,6 @@
     outline: none;
     border: none;
     border-radius: 10px;
-
     color: var(--expression-name-font-color);
     font-size: larger;
     width: 50%;
@@ -62,7 +66,6 @@
     background-color: transparent;
 }
 
-
 .output-directory {
     font-size: large;
     color: var(--output-directory-font-color);
@@ -73,7 +76,6 @@
     padding-right: 10px;
     margin-right: 10px;
     border-radius: 10px;
-
     transition: box-shadow 0.3s ease-in-out;
     flex-grow: 1;
 }
@@ -98,5 +100,4 @@
     color: var(--knob-color);
     height: calc(var(--input-height));
     width: calc(var(--input-height));
-
 }

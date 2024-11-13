@@ -20,7 +20,6 @@ sd = a1111_client.A1111Client()
 
 uploaded = False
 filepath = None
-is_realistic = False
 
 # Assuming you want to save uploaded files in a folder called 'uploads'
 UPLOAD_FOLDER = "uploads"
@@ -143,6 +142,9 @@ def generate():
 
     output_dir = data.get("output_dir") or "New_Character"
 
+    #get the style 'filename' from the data sent -av
+    prompt_style = data.get("prompt_style")
+
     if not matches and data.get("lora") not in [""]:
         data["ad_prompt"] += f" <lora: {data.get('lora')}: 0.8>"
 
@@ -151,6 +153,8 @@ def generate():
     data.pop("init_images")
 
     log.info("Using the following generation parameters:\n" + str(data))
+    #Debug: 'filename' sent to log. -av
+    log.info(f"Prompt Style: {prompt_style}")
 
     try:
         expression_generator.generate_expressions(
@@ -158,7 +162,7 @@ def generate():
             image_str=img_str,
             output_path=f"Output/{output_dir}",
             settings=data,
-            is_realistic=is_realistic,
+            prompt_style=prompt_style,
         )
     except KeyboardInterrupt:
         sd.interrupt()
@@ -200,11 +204,24 @@ def get_image(filename):
     root_path = pathlib.Path(autoexpress.root_path).parent
     return send_from_directory(os.path.join(root_path, "Output"), filename)
 
+@autoexpress.route("/styles/<path:subpath>")
+def list_styles(subpath):
+    styles_dir = 'autoexpress/resources/styles/';
+    root = pathlib.Path(autoexpress.root_path).parent
+    subpath = request.args.get('subpath', '')
+    directory = os.path.join(root, styles_dir, subpath)
 
-@autoexpress.route("/toggle", methods=["POST"])
-def handle_toggle():
-    global is_realistic
-    data = request.get_json()
-    is_realistic = data.get("isRealistic")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-    return jsonify({"message": f"Is realistic status set to {is_realistic}"})
+    try:
+        files = [
+            file
+            for file in os.listdir(directory)
+            if os.path.isfile(os.path.join(directory, file))
+        ]
+        log.info(f"Files found: {files}")
+        return jsonify(files)
+    except FileNotFoundError:
+        log.error(f"Directory not found: {directory}")
+        return jsonify({"error": "Directory not found"}), 404

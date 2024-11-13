@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
 /*NOTES:*/
+
+
 /*
     Icons are now a font: lucide-icon-font
     Usage: Add a class with the name of the icon
@@ -12,11 +14,31 @@
     NOTE: [class^="icon-"], [class*=" icon-"] is part of the font and in main css to style all the icons
 */
 
+
+/* when less than 1300px wide, activate 'mobile' mode */
+
+@media screen and (max-width: 1300px) {
+    .container {
+        flex-flow: row wrap !important;
+    }
+    .left-pane,
+    .right-pane,
+    .center-pane {
+        min-height: 800px !important;
+        max-width: 800px !important;
+        margin: 20px !important;
+        padding: 15px !important;
+    }
+}
+
 :root {
     --font-family: "Quicksand", sans-serif;
     --font-size: 16px;
-
+  
+/* RESOLVE */
+    --input-height: 1.75rem;
     --input-height: 2rem;
+
 
     /* COLORS */
     --font-color: white;
@@ -27,7 +49,7 @@
     --dark-accent: rgba(0, 0, 0, 0.007);
 
     /* 'Border' (shadows) Color Light, (hovers)*/
-    --light-accent: rgb(0, 0, 0);
+    --light-accent: rgba(0, 0, 0, 1);
 
     /* HEADER COLORS */
     --header-font-color: #ffffff;
@@ -37,7 +59,6 @@
 
     /*input field font color*/
     --input-font-color: rgb(201, 201, 201);
-
     /*specific fields*/
     --input-number-color: var(--input-font-color);
     --input-select-color: var(--input-font-color);
@@ -48,21 +69,18 @@
     --negative-prompt-border-color: rgba(255, 0, 0, 0.8);
     --expression-name-font-color: var(--input-font-color);
     --output-directory-font-color: var(--input-font-color);
-
     /* filter over the background */
     --body-background-filter-color: rgba(0, 0, 0, 0.6);
     /* the background of the fields*/
     --input-background-color: rgba(65, 65, 65, 0.4);
-
     /* button colors */
     --button-color: rgba(0, 0, 0, 0.6);
-
     /*main panels color*/
     --panel-background-color: rgba(5, 5, 5, 0.5);
-
     /*background color of positive prompts textareas*/
     --prompt-background-color: rgba(0, 0, 0, 0.1);
     /*background color of negative prompts textareas*/
+
     --negative-prompt-background-color: rgba(0, 0, 0, 0.1);
 
     /*generate button color*/
@@ -76,15 +94,21 @@
     --focus-outline-color: rgb(0, 0, 0);
     --focus-shadow-color: rgb(116, 188, 248);
 
-    /* OBJECTS */
 
+    /* OBJECTS */
     --box-shadow-panes: inset 0 0 8px 0px var(--dark-accent);
     --box-shadow-inset-pos: inset 2px 2px 5px 0px var(--dark-accent);
     /*bottom right inner shadow glow for textarea/button/ etc etc*/
     --box-shadow-inset-neg: inset -2px -2px 5px 0px var(--dark-accent);
 
+  
+  /* RESOLVE */
+    --hover-outline: 1px auto var(--hover-outline-color);
+    --hover-box-shadow: 0 0 2px 2px var(--hover-shadow-color);
+
     --hover-outline: 0px auto var(--hover-outline-color);
     --hover-box-shadow: 0 0 1px  1px var(--hover-shadow-color);
+
     /*outline width/style/color*/
     --focus-outline: 1px auto var(--focus-outline-color);
     --focus-box-shadow: 0 0 2px 2px var(--focus-shadow-color);
@@ -106,16 +130,13 @@ html {
     0% {
         background-position: 0% 50%;
     }
-
     50% {
         background-position: 100% 50%;
     }
-
     100% {
         background-position: 0% 50%;
     }
 }
-
 
 body {
     margin: 0;
@@ -125,28 +146,36 @@ body {
     align-items: center;
     background-color: var(--body-background-filter-color);
     -webkit-backdrop-filter: blur(10px);
+    overflow-y: auto;
+
     backdrop-filter: blur(10px);
+
 }
 
 .container {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
     align-items: stretch;
+    align-content: stretch;
     padding: 0px;
     height: 100vh;
-    width: 95vw;
+    width: 100%;
+    overflow-y: auto;
+    justify-content: center;
+    /*width: 95vw;*/
 }
 
 .left-pane {
-    flex-grow: 1;
+    flex: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 25%;
-    max-width: 350px;
-    min-width: max(350px, 25%);
+
+    width: 350px;
+    max-width: min(400px, 30%);
+    min-width: max(300px, 15%);
+
     background-color: var(--panel-background-color);
     border-radius: 20px;
     overflow-y: auto;
@@ -157,15 +186,17 @@ body {
     box-shadow: var(--box-shadow-panes);
 }
 
-
 .center-pane {
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    max-width: 45%;
-    min-width: max(300px, 30%);
+    width: 400px;
+    max-width: 35%;
+    max-width: min(500px, 40%);
+    min-width: max(300px, 15%);
+
     background-color: var(--panel-background-color);
     border-radius: 20px;
     overflow-y: auto;
@@ -177,13 +208,16 @@ body {
 }
 
 .right-pane {
-    flex-grow: 2;
+    flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    max-width: 40%;
-    min-width: max(350px, 40%);
+    width: 400px;
+    max-width: 50%;
+    max-width: min(800px, 50%);
+    min-width: max(300px, 15%);
+
     background-color: var(--panel-background-color);
     border-radius: 20px;
     margin: 20px;
@@ -192,15 +226,13 @@ body {
     box-shadow: var(--box-shadow-panes);
 }
 
-
 .input-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 5px 5px 5px 0px;
-    padding: 5px 0px 0px 0px;
-    width: 100%;
+    margin: 5px 0px 5px 0px;
+
 }
 
 .input-container.column {
@@ -213,6 +245,7 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
 
 /*select container is two columns, and slider container is three*/
 
@@ -227,8 +260,24 @@ body {
     flex: 0 0 auto;
 }
 
-.input-container.grid-container {
-    justify-content: space-between;
+
+/* GUI Grids */
+
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid-row-two {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: 10px;
+    margin: 10px 0;
+}
+
+.grid-cell {
+    padding: 10px;
 }
 
 h1,
@@ -246,10 +295,8 @@ h6 {
 select {
     flex-grow: 1;
     background-color: var(--input-background-color);
-
     color: var(--input-select-color);
     border: none;
-
     font-size: small;
     height: var(--input-height);
     border-radius: 10px;
@@ -276,8 +323,7 @@ button:hover,
 .drop-zone:hover,
 .drop-zone--over,
 .slider:hover {
-    box-shadow: var(--hover-box-shadow),
-        var(--box-shadow-inset-neg);
+    box-shadow: var(--hover-box-shadow), var(--box-shadow-inset-neg);
     outline: var(--hover-outline);
 }
 
@@ -302,7 +348,6 @@ button {
 
 button:hover {
     background-color: var(--icon-color);
-
     [class^="icon-"],
     [class*=" icon-"] {
         color: var(--input-background-color);
@@ -317,8 +362,12 @@ select {
     box-shadow: var(--box-shadow-inset-pos);
 }
 
+
 /********** Range Input Styles **********/
+
+
 /*Range Reset*/
+
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
@@ -328,7 +377,9 @@ input[type="range"] {
     width: 15rem;
 }
 
+
 /* slider thumb */
+
 input[type="range"]::-webkit-slider-thumb {
     box-shadow: var(--box-shadow-inset-neg);
     appearance: none;
@@ -349,6 +400,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 
 /* Adjust input number appearance */
+
 input[type="number"] {
     text-align: center;
     height: var(--input-height);
@@ -359,7 +411,6 @@ input[type="number"] {
     border: none;
     border-radius: 10px;
     background-color: var(--input-background-color);
-
     &::-webkit-inner-spin-button {
         opacity: 0.5 !important;
         background-color: var(--input-background-color);
@@ -374,7 +425,6 @@ input[type="number"] {
     }
 }
 
-
 label {
     color: var(--label-font-color);
     font-size: medium;
@@ -382,8 +432,6 @@ label {
     padding: 5px;
 
 }
-
-
 
 textarea {
     background-color: var(--input-background-color);
@@ -394,14 +442,11 @@ textarea {
     font-size: large;
     resize: vertical;
     transition: box-shadow 0.3s ease-in-out;
-    box-shadow: var(--box-shadow-inset-pos),
-        var(--box-shadow-inset-neg);
-
+    box-shadow: var(--box-shadow-inset-pos), var(--box-shadow-inset-neg);
 }
 
 
 /*////////////////scrollbar////////////////*/
-
 
 ::-webkit-scrollbar {
     display: none;
@@ -420,7 +465,6 @@ textarea {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
